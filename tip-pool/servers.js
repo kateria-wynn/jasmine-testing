@@ -28,17 +28,19 @@ function submitServerInfo(evt) {
 function updateServerTable() {
   serverTbody.innerHTML = '';
 
-  for (let key in allServers) {
-    let curServer = allServers[key];
+  if (!(Object.keys(allServers).length === 0))
+    for (let key in allServers) {
+      let curServer = allServers[key];
 
-    let newTr = document.createElement('tr');
-    newTr.setAttribute('id', key);
+      let newTr = document.createElement('tr');
+      newTr.setAttribute('id', key);
 
-    let tipAverage = sumPaymentTotal('tipAmt') / Object.keys(allServers).length;
+      let tipAverage =
+        sumPaymentTotal('tipAmt') / Object.keys(allServers).length;
 
-    appendTd(newTr, curServer.serverName);
-    appendTd(newTr, '$' + tipAverage.toFixed(2));
+      appendTd(newTr, curServer.serverName);
+      appendTd(newTr, '$' + tipAverage.toFixed(2));
 
-    serverTbody.append(newTr);
-  }
+      serverTbody.append(newTr);
+    }
 }
