@@ -3,10 +3,6 @@ describe('calculateMonthlyPayment tests', function () {
     values = { amount: 30000, years: 8, rate: 8 };
   });
 
-  afterEach(function () {
-    values = {};
-  });
-
   it('should calculate the periodicInterestRate correctly', function () {
     expect(
       calculateMonthlyPayment({ amount: 30000, years: 8, rate: 14 })
@@ -38,5 +34,9 @@ describe('calculateMonthlyPayment tests', function () {
     expect(
       calculateMonthlyPayment((values = { amount: 0, years: 8, rate: 8 }))
     ).toEqual('0');
+  });
+
+  afterEach(function () {
+    values = {};
   });
 });
