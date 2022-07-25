@@ -49,7 +49,7 @@ function update() {
 // that always has 2 decimal places.
 function calculateMonthlyPayment(values) {
   if (Object.keys(values).length === 0) {
-    return;
+    throw new Error('Invalid values');
   } else {
     const principleAmount = values.amount;
     const periodicInterestRate = values.rate / 100 / 12;
@@ -57,14 +57,14 @@ function calculateMonthlyPayment(values) {
     const monthlyPayment =
       (principleAmount * periodicInterestRate) / 1 -
       Math.pow(1 + periodicInterestRate, -totalPayments);
-    return monthlyPayment;
+    return monthlyPayment.toFixed(2);
   }
 }
 
 // Given a string representing the monthly payment value,
 // update the UI to show the value.
 function updateMonthly(monthly) {
-  const monthlyPayment = monthly.toFixed(2);
+  const monthlyPayment = monthly;
   const monthlyPaymentDisplay = document.getElementById('monthly-payment');
   return (monthlyPaymentDisplay.innerText = `$${monthlyPayment}`);
 }
