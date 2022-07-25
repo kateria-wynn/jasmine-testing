@@ -50,6 +50,8 @@ function update() {
 function calculateMonthlyPayment(values) {
   if (Object.keys(values).length === 0) {
     throw new Error('Invalid values');
+  } else if (values.amount === 0) {
+    return (monthlyPayment = '0');
   } else {
     const principleAmount = values.amount;
     const periodicInterestRate = values.rate / 100 / 12;
