@@ -10,8 +10,9 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 function getCurrentUIValues() {
+  const amount = document.getElementById('loan-amount').value;
   return {
-    amount: +document.getElementById('loan-amount').value,
+    amount: amount.includes(',') ? Number(amount.replace(',', '')) : +amount,
     years: +document.getElementById('loan-years').value,
     rate: +document.getElementById('loan-rate').value,
   };
@@ -56,7 +57,6 @@ function calculateMonthlyPayment(values) {
     const monthlyPayment =
       (principleAmount * periodicInterestRate) / 1 -
       Math.pow(1 + periodicInterestRate, -totalPayments);
-
     return monthlyPayment;
   }
 }
