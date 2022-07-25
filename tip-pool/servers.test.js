@@ -17,20 +17,18 @@ describe('Servers test (with setup and tear-down)', function () {
 
       expect(Object.keys(allServers).length).toEqual(0);
     });
+  });
+  describe('updateServerTable tests', function () {
+    it('should not create a new table row if allServers is empty', function () {
+      const serverTable = document.querySelector('#serverTable');
+      allServers = {};
+      submitServerInfo();
 
-    describe('updateServerTable tests', function () {
-      it('should not create a new table row if allServers is empty', function () {
-        const serverTable = document.querySelector('#serverTable');
-        allServers = {};
-        submitServerInfo();
-
-        expect(Object.keys(allServers).length === 0);
-        // expect server table to not have children
-        expect(serverTable.hasChildNodes()).toBe(true);
-      });
+      expect(Object.keys(allServers).length === 0);
+      // expect server table to not have children
+      expect(serverTable.hasChildNodes()).toBe(true);
     });
   });
-
   afterEach(function () {
     for (let server in allServers) {
       let serverNum = server.slice(-1);
