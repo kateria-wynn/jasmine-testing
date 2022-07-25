@@ -51,7 +51,7 @@ function calculateMonthlyPayment(values) {
   const totalPayments = values.years * 12;
   const monthlyPayment =
     (principleAmount * periodicInterestRate) / 1 -
-    Math.pow(1 + periodicInterestRate, -totalPayments).toFixed(2);
+    Math.pow(1 + periodicInterestRate, -totalPayments);
 
   updateMonthly(monthlyPayment);
 }
@@ -59,6 +59,7 @@ function calculateMonthlyPayment(values) {
 // Given a string representing the monthly payment value,
 // update the UI to show the value.
 function updateMonthly(monthly) {
+  const monthlyPayment = monthly.toFixed(2);
   const monthlyPaymentDisplay = document.getElementById('monthly-payment');
-  monthlyPaymentDisplay.innerText = `$${monthly}`;
+  monthlyPaymentDisplay.innerText = `$${monthlyPayment}`;
 }
