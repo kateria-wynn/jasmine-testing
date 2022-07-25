@@ -21,6 +21,8 @@ function submitServerInfo(evt) {
     updateServerTable();
 
     serverNameInput.value = '';
+  } else {
+    return;
   }
 }
 
