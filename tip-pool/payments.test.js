@@ -51,7 +51,16 @@ describe('Payments tests', function () {
       expect(typeof createCurPayment().tipPercent).toBe('number');
     });
   });
-  //   describe('appendPaymentTable tests', function () {});
+  describe('appendPaymentTable tests', function () {
+    it('should not create a new table row if allPayments is empty', function () {
+      const paymentTable = document.querySelector('#paymentTable');
+      createCurPayment();
+      allPayments = {};
+
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(paymentTable.hasChildNodes()).toBe(true);
+    });
+  });
   //   describe('updateSummary tests', function () {});
 
   afterEach(function () {
