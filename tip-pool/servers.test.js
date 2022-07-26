@@ -21,10 +21,10 @@ describe('Servers test (with setup and tear-down)', function () {
   describe('updateServerTable tests', function () {
     it('should not create a new table row if allServers is empty', function () {
       const serverTable = document.querySelector('#serverTable');
-      allServers = {};
       submitServerInfo();
+      allServers = {};
 
-      expect(Object.keys(allServers).length === 0);
+      expect(Object.keys(allServers).length).toEqual(0);
       // expect server table to not have children
       expect(serverTable.hasChildNodes()).toBe(true);
     });
