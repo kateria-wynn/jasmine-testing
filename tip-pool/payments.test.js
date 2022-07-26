@@ -61,7 +61,18 @@ describe('Payments tests', function () {
       expect(paymentTable.hasChildNodes()).toBe(true);
     });
   });
-  //   describe('updateSummary tests', function () {});
+  describe('updateSummary tests', function () {
+    it('should set tipPercentAvg to 0 if paymentTotal and numberOfPayments is 0', function () {
+      summaryTds = document.querySelectorAll('#summaryTable tbody tr td');
+      paymentTotal = 0;
+      numberOfPayments = 0;
+      createCurPayment();
+      updateSummary();
+      expect(summaryTds[0].innerHTML).toEqual('$0');
+      expect(summaryTds[1].innerHTML).toEqual('$0');
+      expect(summaryTds[2].innerHTML).toEqual('0%');
+    });
+  });
 
   afterEach(function () {
     if (allPayments)
