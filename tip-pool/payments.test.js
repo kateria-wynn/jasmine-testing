@@ -12,28 +12,55 @@ describe('Payments tests', function () {
       expect(allPayments[`payment${paymentId}`].billAmt).toBe('100');
       expect(allPayments[`payment${paymentId}`].tipAmt).toBe('20');
     });
-    it('should not add a new payment to allPayments if the billAmt or tipAmt is empty', function () {
+  });
+  describe('createCurPayment tests', function () {
+    it('should not add a new payment to allPayments if the billAmt is empty and return undefined', function () {
       billAmtInput.value = '';
+
+      createCurPayment();
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should not add a new payment to allPayments if the tipAmt is empty and return undefined', function () {
       tipAmtInput.value = '';
 
-      submitPaymentInfo();
-
+      createCurPayment();
       expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should return undefined with negative bill amount', function () {
+      billAmtInput.value = '-100';
+
+      createCurPayment();
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should return undefined with negative tip amount', function () {
+      tipAmtInput.value = '-20';
+
+      createCurPayment();
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should return billAmt and tipAmt as strings', function () {
+      expect(
+        typeof createCurPayment().billAmt && typeof createCurPayment().billAmt
+      ).toBe('string');
+    });
+    it('should return tipPercent as a number', function () {
+      expect(typeof createCurPayment().tipPercent).toBe('number');
     });
   });
-  //   describe('createCurPayment tests', function () {});
   //   describe('appendPaymentTable tests', function () {});
   //   describe('updateSummary tests', function () {});
 
   afterEach(function () {
-    for (let payment in allPayments) {
-      let paymentNum = payment.slice(-1);
-      let currPayment = document.querySelector(`#payment${paymentNum}`);
-      currPayment.parentElement.replaceChildren();
-    }
-    allPayment = {};
+    if (allPayments)
+      for (let payment in allPayments) {
+        let paymentNum = payment.slice(-1);
+        let currPayment = document.querySelector(`#payment${paymentNum}`);
+        currPayment.parentElement.replaceChildren();
+      }
+    allPayments = {};
   });
 });
-
-// billAmt and tipAmt should both be strings
-// tip percent should be a num
