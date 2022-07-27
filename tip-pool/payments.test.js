@@ -20,66 +20,66 @@ describe('Payments tests', function () {
       expect(tipAmtInput.innerText).toBe('');
     });
   });
-  // describe('createCurPayment tests', function () {
-  //   it('should not add a new payment to allPayments if the billAmt is empty and return undefined', function () {
-  //     billAmtInput.value = '';
+  describe('createCurPayment tests', function () {
+    it('should not add a new payment to allPayments if the billAmt is empty and return undefined', function () {
+      billAmtInput.value = '';
 
-  //     createCurPayment();
-  //     expect(Object.keys(allPayments).length).toEqual(0);
-  //     expect(createCurPayment()).toBe(undefined);
-  //   });
-  //   it('should not add a new payment to allPayments if the tipAmt is empty and return undefined', function () {
-  //     tipAmtInput.value = '';
+      createCurPayment();
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should not add a new payment to allPayments if the tipAmt is empty and return undefined', function () {
+      tipAmtInput.value = '';
 
-  //     createCurPayment();
-  //     expect(Object.keys(allPayments).length).toEqual(0);
-  //     expect(createCurPayment()).toBe(undefined);
-  //   });
-  //   it('should return undefined with negative bill amount', function () {
-  //     billAmtInput.value = '-100';
+      createCurPayment();
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should return undefined with negative bill amount', function () {
+      billAmtInput.value = '-100';
 
-  //     createCurPayment();
-  //     expect(Object.keys(allPayments).length).toEqual(0);
-  //     expect(createCurPayment()).toBe(undefined);
-  //   });
-  //   it('should return undefined with negative tip amount', function () {
-  //     tipAmtInput.value = '-20';
+      createCurPayment();
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should return undefined with negative tip amount', function () {
+      tipAmtInput.value = '-20';
 
-  //     createCurPayment();
-  //     expect(Object.keys(allPayments).length).toEqual(0);
-  //     expect(createCurPayment()).toBe(undefined);
-  //   });
-  //   it('should return billAmt and tipAmt as strings', function () {
-  //     expect(
-  //       typeof createCurPayment().billAmt && typeof createCurPayment().billAmt
-  //     ).toBe('string');
-  //   });
-  //   it('should return tipPercent as a number', function () {
-  //     expect(typeof createCurPayment().tipPercent).toBe('number');
-  //   });
-  // });
-  // describe('appendPaymentTable tests', function () {
-  //   it('should not create a new table row if allPayments is empty', function () {
-  //     const paymentTable = document.querySelector('#paymentTable');
-  //     createCurPayment();
-  //     allPayments = {};
+      createCurPayment();
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(createCurPayment()).toBe(undefined);
+    });
+    it('should return billAmt and tipAmt as strings', function () {
+      expect(
+        typeof createCurPayment().billAmt && typeof createCurPayment().billAmt
+      ).toBe('string');
+    });
+    it('should return tipPercent as a number', function () {
+      expect(typeof createCurPayment().tipPercent).toBe('number');
+    });
+  });
+  describe('appendPaymentTable tests', function () {
+    it('should not create a new table row if allPayments is empty', function () {
+      const paymentTable = document.querySelector('#paymentTable');
+      createCurPayment();
+      allPayments = {};
 
-  //     expect(Object.keys(allPayments).length).toEqual(0);
-  //     expect(paymentTable.hasChildNodes()).toBe(true);
-  //   });
-  // });
-  // describe('updateSummary tests', function () {
-  //   it('should set tipPercentAvg to 0 if paymentTotal and numberOfPayments is 0', function () {
-  //     summaryTds = document.querySelectorAll('#summaryTable tbody tr td');
-  //     paymentTotal = 0;
-  //     numberOfPayments = 0;
-  //     createCurPayment();
-  //     updateSummary();
-  //     expect(summaryTds[0].innerHTML).toEqual('$0');
-  //     expect(summaryTds[1].innerHTML).toEqual('$0');
-  //     expect(summaryTds[2].innerHTML).toEqual('0%');
-  //   });
-  // });
+      expect(Object.keys(allPayments).length).toEqual(0);
+      expect(paymentTable.hasChildNodes()).toBe(true);
+    });
+  });
+  describe('updateSummary tests', function () {
+    it('should set tipPercentAvg to 0 if paymentTotal and numberOfPayments is 0', function () {
+      summaryTds = document.querySelectorAll('#summaryTable tbody tr td');
+      paymentTotal = 0;
+      numberOfPayments = 0;
+      createCurPayment();
+      updateSummary();
+      expect(summaryTds[0].innerHTML).toEqual('$0');
+      expect(summaryTds[1].innerHTML).toEqual('$0');
+      expect(summaryTds[2].innerHTML).toEqual('0%');
+    });
+  });
 
   afterEach(function () {
     if (allPayments)
