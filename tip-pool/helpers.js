@@ -3,10 +3,10 @@ function sumPaymentTotal(type) {
   let total = 0;
 
   for (let key in allPayments) {
-    console.log(key, allPayments);
     let payment = allPayments[key];
 
     total += Number(payment[type]);
+    console.log(allPayments);
   }
 
   return total;
