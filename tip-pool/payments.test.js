@@ -1,11 +1,9 @@
 describe('Payments tests', function () {
-  beforeEach(function () {
-    billAmtInput.value = '100';
-    tipAmtInput.value = '20';
-  });
-
   describe('submitPaymentInfo tests', function () {
     it('should add a new payment to allPayments on submitPaymentInfo()', function () {
+      billAmtInput.value = '100';
+      tipAmtInput.value = '20';
+
       submitPaymentInfo();
 
       expect(paymentId).toEqual(1);
@@ -14,50 +12,55 @@ describe('Payments tests', function () {
       expect(allPayments[`payment${paymentId}`].tipAmt).toBe('20');
     });
     it('should reset bill and tip amount inputs', function () {
-      submitPaymentInfo();
-
       expect(billAmtInput.innerText).toBe('');
       expect(tipAmtInput.innerText).toBe('');
     });
   });
+
   describe('createCurPayment tests', function () {
     it('should not add a new payment to allPayments if the billAmt is empty and return undefined', function () {
       billAmtInput.value = '';
 
-      createCurPayment();
+      submitPaymentInfo();
       expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should not add a new payment to allPayments if the tipAmt is empty and return undefined', function () {
       tipAmtInput.value = '';
 
-      createCurPayment();
+      submitPaymentInfo();
       expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return undefined with negative bill amount', function () {
       billAmtInput.value = '-100';
 
-      createCurPayment();
+      submitPaymentInfo();
       expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return undefined with negative tip amount', function () {
       tipAmtInput.value = '-20';
 
-      createCurPayment();
+      submitPaymentInfo();
       expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return billAmt and tipAmt as strings', function () {
+      billAmtInput.value = '100';
+      tipAmtInput.value = '20';
+
       expect(
         typeof createCurPayment().billAmt && typeof createCurPayment().billAmt
       ).toBe('string');
     });
     it('should return tipPercent as a number', function () {
+      billAmtInput.value = '100';
+      tipAmtInput.value = '20';
       expect(typeof createCurPayment().tipPercent).toBe('number');
     });
   });
+
   describe('appendPaymentTable tests', function () {
     it('should not create a new table row if allPayments is empty', function () {
       const paymentTable = document.querySelector('#paymentTable');
