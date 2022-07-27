@@ -6,7 +6,6 @@ function sumPaymentTotal(type) {
     let payment = allPayments[key];
 
     total += Number(payment[type]);
-    console.log(allPayments);
   }
 
   return total;
