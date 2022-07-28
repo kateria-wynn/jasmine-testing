@@ -73,7 +73,7 @@ describe('Payments tests', function () {
 
       let curTdList = document.querySelectorAll('#paymentTable tbody tr td');
 
-      expect(curTdList.length).toEqual(3);
+      expect(curTdList.length).toEqual(4);
       expect(paymentTable.hasChildNodes()).toBe(true);
       expect(curTdList[0].innerText).toEqual('$100');
       expect(curTdList[1].innerText).toEqual('$20');
