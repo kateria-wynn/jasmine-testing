@@ -23,3 +23,15 @@ function appendTd(tr, value) {
 
   tr.append(newTd);
 }
+
+/*
+Expects a table row element as param.
+
+This function will create a ‘td’ with the value ‘X’, when clicked it will delete the table row it belongs to
+*/
+function appendDeleteBtn(tr) {
+  let newTd = document.createElement('td');
+  newTd.innerText = 'X';
+
+  tr.append(newTd);
+}
