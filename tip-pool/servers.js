@@ -8,6 +8,7 @@ let serverId = 0;
 
 serverForm.addEventListener('submit', submitServerInfo);
 
+// when X is clicked, the table row it belongs to will be deleted (aka a server)
 serverTbody.addEventListener('click', function (e) {
   if (e.target.innerText === 'X') {
     e.target.parentElement.remove();
