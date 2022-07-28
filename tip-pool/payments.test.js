@@ -23,6 +23,15 @@ describe('Payments tests', function () {
   });
 
   describe('createCurPayment tests', function () {
+    it('should create a new payment on createCurPayment()', function () {
+      let expectedPayment = {
+        billAmt: '100',
+        tipAmt: '20',
+        tipPercent: 20,
+      };
+
+      expect(createCurPayment()).toEqual(expectedPayment);
+    });
     it('should not add a new payment to allPayments if the billAmt is empty and return undefined', function () {
       billAmtInput.value = '';
 
@@ -66,22 +75,21 @@ describe('Payments tests', function () {
     });
   });
 
-  // describe('appendPaymentTable tests', function () {
-  //   it('should update paymentTable on appendPaymentTable()', function () {
-  //     let curPayment = createCurPayment();
-  //     allPayments['payment1'] = curPayment;
+  describe('appendPaymentTable tests', function () {
+    it('should update paymentTable on appendPaymentTable()', function () {
+      let curPayment = createCurPayment();
 
-  //     appendPaymentTable(curPayment);
+      appendPaymentTable(curPayment);
 
-  //     let curTdList = document.querySelectorAll('#paymentTable tbody tr td');
+      let curTdList = document.querySelectorAll('#paymentTable tbody tr td');
 
-  //     expect(curTdList.length).toEqual(3);
-  //     expect(curTdList[0].innerText).toEqual('$100');
-  //     expect(curTdList[1].innerText).toEqual('$20');
-  //     expect(curTdList[2].innerText).toEqual('20%');
-  //     expect(paymentTable.hasChildNodes()).toBe(true);
-  //   });
-  // });
+      expect(curTdList.length).toEqual(3);
+      expect(paymentTable.hasChildNodes()).toBe(true);
+      expect(curTdList[0].innerText).toEqual('$100');
+      expect(curTdList[1].innerText).toEqual('$20');
+      expect(curTdList[2].innerText).toEqual('20%');
+    });
+  });
   // describe('updateSummary tests', function () {
   //   it('should update summary table correctly', function () {
   //     createCurPayment();
