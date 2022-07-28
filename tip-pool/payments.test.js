@@ -12,8 +12,11 @@ describe('Payments tests', function () {
       expect(Object.keys(allPayments).length).toEqual(1);
       expect(allPayments[`payment${paymentId}`].billAmt).toBe('100');
       expect(allPayments[`payment${paymentId}`].tipAmt).toBe('20');
+      expect(allPayments[`payment${paymentId}`].tipPercent).toEqual(20);
     });
     it('should reset bill and tip amount inputs', function () {
+      submitPaymentInfo();
+
       expect(billAmtInput.innerText).toBe('');
       expect(tipAmtInput.innerText).toBe('');
     });
@@ -23,66 +26,90 @@ describe('Payments tests', function () {
     it('should not add a new payment to allPayments if the billAmt is empty and return undefined', function () {
       billAmtInput.value = '';
 
+      submitPaymentInfo();
+
+      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should not add a new payment to allPayments if the tipAmt is empty and return undefined', function () {
       tipAmtInput.value = '';
 
+      submitPaymentInfo();
+
+      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return undefined with negative bill amount', function () {
       billAmtInput.value = '-100';
 
+      submitPaymentInfo();
+
+      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return undefined with negative tip amount', function () {
       tipAmtInput.value = '-20';
 
+      submitPaymentInfo();
+
+      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return billAmt and tipAmt as strings', function () {
+      submitPaymentInfo();
+
       expect(
-        typeof createCurPayment().billAmt && typeof createCurPayment().billAmt
+        typeof allPayments['payment1'].billAmt &&
+          typeof allPayments['payment1'].tipAmt
       ).toBe('string');
     });
     it('should return tipPercent as a number', function () {
-      expect(typeof createCurPayment().tipPercent).toBe('number');
+      submitPaymentInfo();
+
+      expect(typeof allPayments['payment1'].tipPercent).toBe('number');
     });
   });
 
   // describe('appendPaymentTable tests', function () {
   //   it('should not create a new table row if allPayments is empty', function () {
-  //     const paymentTable = document.querySelector('#paymentTable');
-  //     createCurPayment();
   //     allPayments = {};
-
   //     expect(Object.keys(allPayments).length).toEqual(0);
   //     expect(paymentTable.hasChildNodes()).toBe(true);
   //   });
   // });
   // describe('updateSummary tests', function () {
-  //   it('should set tipPercentAvg to 0 if paymentTotal and numberOfPayments is 0', function () {
-  //     summaryTds = document.querySelectorAll('#summaryTable tbody tr td');
-
+  //   it('should update summary table correctly', function () {
   //     createCurPayment();
-  //     updateSummary();
-  //     tipPercentAvg;
-  //     paymentTotal = 0;
-  //     numberOfPayments = 0;
-  //     expect(tipPercentAvg).toEqual(0);
-  //     // expect(summaryTds[0].innerHTML).toEqual('$0');
-  //     // expect(summaryTds[1].innerHTML).toEqual('$0');
-  //     // expect(summaryTds[2].innerHTML).toEqual('0%');
+
+  //     console.log(allPayments);
+
+  //     expect(summaryTds[0].innerHTML).toEqual(
+  //       `$${allPayments['payment1'].billAmt}`
+  //     );
+  //     expect(summaryTds[1].innerHTML).toEqual(
+  //       `$${allPayments['payment1'].tipAmt}`
+  //     );
+  //     expect(summaryTds[2].innerHTML).toEqual(
+  //       `${allPayments['payment1'].tipPercent}%`
+  //     );
   //   });
   // });
+  afterEach(function () {
+    billAmtInput.value = '';
+    tipAmtInput.value = '';
+    serverTbody.innerHTML = '';
+    summaryTds[0].innerHTML = '';
+    summaryTds[1].innerHTML = '';
+    summaryTds[2].innerHTML = '';
 
-  // afterAll(function () {
-  //   if (allPayments)
-  //     for (let payment in allPayments) {
-  //       let paymentNum = payment.slice(-1);
-  //       let currPayment = document.querySelector(`#payment${paymentNum}`);
-  //       currPayment.parentElement.replaceChildren();
-  //     }
-  //   allPayments = {};
-  // });
+    if (allPayments) {
+      for (let payment in allPayments) {
+        let paymentNum = payment.slice(-1);
+        let currPayment = document.querySelector(`#payment${paymentNum}`);
+        currPayment.parentElement.replaceChildren();
+      }
+      paymentId = 0;
+      allPayments = {};
+    }
+  });
 });
