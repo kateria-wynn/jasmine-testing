@@ -28,7 +28,6 @@ describe('Payments tests', function () {
 
       submitPaymentInfo();
 
-      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should not add a new payment to allPayments if the tipAmt is empty and return undefined', function () {
@@ -36,7 +35,6 @@ describe('Payments tests', function () {
 
       submitPaymentInfo();
 
-      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return undefined with negative bill amount', function () {
@@ -44,7 +42,6 @@ describe('Payments tests', function () {
 
       submitPaymentInfo();
 
-      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return undefined with negative tip amount', function () {
@@ -52,7 +49,6 @@ describe('Payments tests', function () {
 
       submitPaymentInfo();
 
-      expect(Object.keys(allPayments).length).toEqual(0);
       expect(createCurPayment()).toBe(undefined);
     });
     it('should return billAmt and tipAmt as strings', function () {
@@ -71,9 +67,18 @@ describe('Payments tests', function () {
   });
 
   // describe('appendPaymentTable tests', function () {
-  //   it('should not create a new table row if allPayments is empty', function () {
-  //     allPayments = {};
-  //     expect(Object.keys(allPayments).length).toEqual(0);
+  //   it('should update paymentTable on appendPaymentTable()', function () {
+  //     let curPayment = createCurPayment();
+  //     allPayments['payment1'] = curPayment;
+
+  //     appendPaymentTable(curPayment);
+
+  //     let curTdList = document.querySelectorAll('#paymentTable tbody tr td');
+
+  //     expect(curTdList.length).toEqual(3);
+  //     expect(curTdList[0].innerText).toEqual('$100');
+  //     expect(curTdList[1].innerText).toEqual('$20');
+  //     expect(curTdList[2].innerText).toEqual('20%');
   //     expect(paymentTable.hasChildNodes()).toBe(true);
   //   });
   // });
@@ -94,22 +99,33 @@ describe('Payments tests', function () {
   //     );
   //   });
   // });
+  // afterEach(function () {
+  //   billAmtInput.value = '';
+  //   tipAmtInput.value = '';
+  //   serverTbody.innerHTML = '';
+
+  //   if (allPayments) {
+  //     for (let payment in allPayments) {
+  //       let paymentNum = payment.slice(-1);
+  //       let currPayment = document.querySelector(`#payment${paymentNum}`);
+  //       currPayment.parentElement.replaceChildren();
+  //     }
+  //     paymentId = 0;
+  //     allPayments = {};
+  //     summaryTds[0].innerHTML = '';
+  //     summaryTds[1].innerHTML = '';
+  //     summaryTds[2].innerHTML = '';
+  //   }
+  // });
   afterEach(function () {
     billAmtInput.value = '';
     tipAmtInput.value = '';
-    serverTbody.innerHTML = '';
+    paymentTbody.innerHTML = '';
     summaryTds[0].innerHTML = '';
     summaryTds[1].innerHTML = '';
     summaryTds[2].innerHTML = '';
-
-    if (allPayments) {
-      for (let payment in allPayments) {
-        let paymentNum = payment.slice(-1);
-        let currPayment = document.querySelector(`#payment${paymentNum}`);
-        currPayment.parentElement.replaceChildren();
-      }
-      paymentId = 0;
-      allPayments = {};
-    }
+    serverTbody.innerHTML = '';
+    paymentId = 0;
+    allPayments = {};
   });
 });
