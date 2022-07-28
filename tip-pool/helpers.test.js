@@ -57,6 +57,15 @@ describe('Helpers tests', function () {
       expect(tr.childNodes[0].innerText).toEqual(`${value}`);
     });
   });
+  describe('appendDeleteBtn tests', function () {
+    it('should update the HTML with a delete td and append to tr on appendTd(tr, type)', function () {
+      tr = document.createElement('tr');
+      appendDeleteBtn(tr);
+
+      expect(tr.children.length).toEqual(1);
+      expect(tr.firstChild.innerText).toEqual('X');
+    });
+  });
   afterEach(function () {
     billAmtInput.value = '';
     tipAmtInput.value = '';
