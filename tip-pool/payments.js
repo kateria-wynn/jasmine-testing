@@ -25,6 +25,8 @@ function submitPaymentInfo(evt) {
     updateServerTable();
     updateSummary();
 
+    console.log(allPayments);
+
     billAmtInput.value = '';
     tipAmtInput.value = '';
   } else {
