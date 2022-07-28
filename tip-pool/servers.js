@@ -9,7 +9,6 @@ let serverId = 0;
 serverForm.addEventListener('submit', submitServerInfo);
 
 serverTbody.addEventListener('click', function (e) {
-  console.log(e);
   if (e.target.innerText === 'X') {
     e.target.parentElement.remove();
   }
